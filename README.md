@@ -1,2 +1,2 @@
 # rockbuster-sql
-SQL and Tableau case study exploring revenue, customers, and market strategy for Rockbuster Stealth.
+SQL and Tableau analysis for Rockbuster Stealth, a global movie rental company preparing to enter streaming. Explored catalog performance, customer segmentation, and geographic revenue trends to guide decisions on content investment and market expansion. Delivered insights showing that catalog diversity drives steady growth, mid-sized regions yield high per-customer value, and top spenders are globally distributed—informing leadership’s strategic roadmap.
