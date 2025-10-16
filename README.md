@@ -1,2 +1,3 @@
-# rockbuster-sql
+# Rockbuster Stealth Analysis
+Using SQL and Tableau to Guide a Streaming Launch
 SQL and Tableau analysis for Rockbuster Stealth, a global movie rental company preparing to enter streaming. Explored catalog performance, customer segmentation, and geographic revenue trends to guide decisions on content investment and market expansion. Delivered insights showing that catalog diversity drives steady growth, mid-sized regions yield high per-customer value, and top spenders are globally distributed—informing leadership’s strategic roadmap.
