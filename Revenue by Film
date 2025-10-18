@@ -1,14 +1,16 @@
 SELECT
-  f.film_id,
-  f.title,
-  SUM(p.amount)   AS revenue,
-  c.name        AS category,
-  f.rating      AS rating
+  f.film_id        AS film_id,
+  f.title          AS title,
+  f.rating         AS rating,
+  c.name           AS category,
+  SUM(p.amount)    AS revenue
 FROM payment  p
 JOIN rental   r  ON p.rental_id   = r.rental_id
 JOIN inventory i ON r.inventory_id = i.inventory_id
 JOIN film      f ON i.film_id      = f.film_id
 JOIN film_category fc ON fc.film_id    = f.film_id
 JOIN category c       ON c.category_id = fc.category_id
-GROUP BY f.film_id, f.title, c.name, f.rating
-ORDER BY revenue DESC, f.film_id, c.name;
+GROUP BY
+  f.film_id, f.title, f.rating, c.name
+ORDER BY
+  revenue DESC
