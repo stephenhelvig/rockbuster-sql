@@ -8,7 +8,7 @@
 */
 
 -- ===== Guard (optional; uncomment to validate) =====
--- -- Films that have 0 or >1 categories (should return 0 rows if one category per film)
+-- -- Films that have 0 or >1 categories (If truly one category per film, should return 0 rows)
 -- SELECT
 --   f.film_id,
 --   f.title,
