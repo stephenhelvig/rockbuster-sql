@@ -1,8 +1,8 @@
-/* Revenue by Film–Category
-   Grain: 1 row per film–category (film repeats if it has multiple categories)
-   Metric: SUM(p.amount) as revenue
-   Join path: payment -> rental -> inventory -> film -> film_category -> category
-*/
+-- Revenue by Film (Category & Rating included)
+-- Grain: one row per film–category (assumes one category per film. But if a film had multiple categories it would appear multiple times;
+--        revenue is the film's total and repeats across its categories)
+-- Join path: payment -> rental -> inventory -> film -> film_category -> category
+-- Metric: SUM(p.amount) as revenue
 
 SELECT
   f.film_id        AS film_id,
