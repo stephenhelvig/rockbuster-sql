@@ -1,9 +1,13 @@
 /* Revenue by Film (Category & Rating included)
+
    Grain: one row per film–category.
           Assumes one category per film; if a film has multiple categories it will appear multiple times,
           and the film’s total revenue will repeat across those rows.
+
    Join path: payment -> rental -> inventory -> film -> film_category -> category
+
    Metric: SUM(p.amount) as revenue
+
    Note: If you later aggregate this output by category without deduping films, totals can be overstated.
 */
 
