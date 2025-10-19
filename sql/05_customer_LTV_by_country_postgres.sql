@@ -38,5 +38,4 @@ GROUP BY
   c.customer_id,
   co.country
 ORDER BY
-  total_amount DESC,
-  c.customer_id;
+  total_amount DESC;
