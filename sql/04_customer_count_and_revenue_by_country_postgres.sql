@@ -9,7 +9,6 @@ Grain:
 
 Strategy:
   - Join spine (customers -> geography): customer -> address -> city -> country.
-  - LEFT JOIN to rental -> payment so countries with customers but no payments remain.
   - Aggregate at country.
 
 Outputs:
@@ -19,11 +18,6 @@ Outputs:
 
 Guards:
   - COALESCE(SUM(p.amount), 0) to show 0 instead of NULL when no payments.
-  - Using LEFT JOINs preserves countries with zero activity.
-
-Notes:
-  If you only want countries with actual payments, switch the two LEFT JOINs to INNER JOINs
-  and remove COALESCE.
 */
 
 SELECT
@@ -34,8 +28,8 @@ FROM customer c
 JOIN address  a   ON a.address_id  = c.address_id
 JOIN city     ci  ON ci.city_id    = a.city_id
 JOIN country  co  ON co.country_id = ci.country_id
-LEFT JOIN rental  r   ON r.customer_id = c.customer_id
-LEFT JOIN payment p   ON p.rental_id   = r.rental_id
+JOIN rental  r   ON r.customer_id = c.customer_id
+JOIN payment p   ON p.rental_id   = r.rental_id
 GROUP BY
   co.country
 ORDER BY
