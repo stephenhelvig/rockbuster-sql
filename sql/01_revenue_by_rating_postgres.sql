@@ -56,4 +56,4 @@ CROSS JOIN totals t
 GROUP BY
   f.rating, t.total_rentals, t.total_revenue
 ORDER BY
-  revenue DESC, f.rating;
+  revenue DESC;
