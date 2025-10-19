@@ -1,10 +1,28 @@
-/* Revenue by Film (Future-proof: Category & Rating included)
-   Grain: one row per film (never duplicated by category).
-   Why: film ↔ category can be many-to-many in other datasets. We compute revenue per film first,
-        then attach exactly one deterministic category so totals are stable even if a film has multiple categories.
-   Category choice: MAX(c.name) picks one category alphabetically (stable, deterministic).
-   Join path (revenue): payment -> rental -> inventory -> film
-   Metric: SUM(p.amount) as revenue
+/* Revenue by Film (Future-proof, Category & Rating included) — Catalog of Performers (PostgreSQL)
+
+Purpose:
+  Report revenue at the film grain without risking double-counting from film↔category many-to-many.
+  Revenue is computed per film first, then a single representative category is attached.
+
+Grain:
+  1 row per film (never duplicated by category).
+
+Strategy:
+  - film_revenue CTE: SUM(p.amount) per film via payment -> rental -> inventory -> film.
+  - one_category CTE: pick one deterministic category per film (MAX(c.name) = alphabetical).
+  - LEFT JOIN film_revenue to one_category to include films even if a category is missing.
+
+Outputs:
+  film_id,
+  title,
+  rating,
+  category (representative),
+  revenue
+
+Notes:
+  - Deterministic pick keeps totals stable even if a film has multiple categories.
+  - If you want to show *all* categories without changing the grain, use the commented
+    STRING_AGG alternative to attach a comma-separated category list.
 */
 
 WITH film_revenue AS (
