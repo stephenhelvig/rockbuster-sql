@@ -1,8 +1,7 @@
 /* Customer Count & Revenue by Country (Catalog View, PostgreSQL)
 
 Purpose:
-  Country-level rollup showing how many customers you have and how much they’ve paid in total.
-  Counts all customers by country; countries with zero payments are still included.
+  Country-level rollup showing how many customers per country and how much they’ve paid in total.
 
 Grain:
   1 row per country.
