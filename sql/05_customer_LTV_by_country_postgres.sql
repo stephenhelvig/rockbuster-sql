@@ -30,7 +30,6 @@ Notes:
 SELECT
 c.customer_id,
 co.country,
-COUNT(r.rental_id) AS rentals,
 SUM(p.amount)      AS total_amount
 FROM payment  p
 JOIN rental   r  ON p.rental_id   = r.rental_id
@@ -39,4 +38,4 @@ JOIN address  a  ON c.address_id  = a.address_id
 JOIN city     ci ON a.city_id      = ci.city_id
 JOIN country  co ON ci.country_id  = co.country_id
 GROUP BY c.customer_id, co.country
-ORDER BY total_amount DESC, rentals DESC, c.customer_id;
+ORDER BY total_amount DESC, c.customer_id;
