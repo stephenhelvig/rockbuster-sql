@@ -1,27 +1,33 @@
 /* Revenue by Rating — Catalog View (PostgreSQL)
 
-Purpose: Summary by MPAA rating using the full film catalog as the denominator,
-         so unrented films still count in films_in_rating.
+Purpose:
+  Summarize rentals & revenue by MPAA rating with the denominator = ALL films in the catalog,
+  so unrented films still count in films_in_rating.
 
-Grain:   1 row per rating.
+Grain:
+  1 row per rating.
 
-Join path: film ←left— inventory ←left— rental ←left— payment
-           (LEFT JOINs keep zero-activity ratings.)
+Strategy:
+  - totals CTE: computes grand totals for rentals & revenue once (for stable % of total).
+  - Main query:
+      • Film counts from film (catalog).
+      • Rentals & revenue via LEFT JOINs: film -> inventory -> rental -> payment,
+        so ratings with zero activity are retained.
+      • Percent-of-total fields divide by the totals from the CTE.
+      • revenue_per_film uses the catalog denominator (films_in_rating).
 
-Columns:
-  - rating
-  - films_in_rating  (COUNT DISTINCT film_id from catalog)
-  - rentals          (COUNT rental_id)
-  - revenue          (SUM payment.amount)
-  - pct_of_total_rentals = rentals in each rating * 100 / total_rentals (via totals CTE)
-  - pct_of_total_revenue = revenue in each rating * 100 / total_revenue (via totals CTE)
-  - revenue_per_film = revenue / films_in_rating
+Outputs:
+  rating,
+  films_in_rating,
+  rentals,
+  revenue,
+  pct_of_total_rentals,
+  pct_of_total_revenue,
+  revenue_per_film
 
 Guards:
-  - COALESCE on SUM(amount) → treat “no payments” as 0
-  - NULLIF on denominators → avoid divide-by-zero
-
-Notes: Percentages use a single totals CTE for stability; let your BI tool handle formatting.
+  - COALESCE(SUM(p.amount), 0.0) to treat “no payments” as 0 in arithmetic.
+  - NULLIF(denominator, 0) to avoid divide-by-zero in per-film and percentage calcs.
 */
 
 WITH totals AS (
