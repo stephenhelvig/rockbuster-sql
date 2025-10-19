@@ -39,5 +39,4 @@ LEFT JOIN payment p   ON p.rental_id   = r.rental_id
 GROUP BY
   co.country
 ORDER BY
-  total_payment DESC,
-  country;
+  total_payment DESC;
