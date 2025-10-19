@@ -56,4 +56,4 @@ JOIN category c       ON c.category_id  = fc.category_id
 GROUP BY
   f.film_id, f.title, f.rating, c.name
 ORDER BY
-  revenue DESC, film_id;
+  revenue DESC;
