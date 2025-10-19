@@ -8,7 +8,7 @@ Grain:
   1 row per country.
 
 Strategy:
-  - Join spine (customers -> geography): customer -> address -> city -> country.
+  - Join spine: customer -> address -> city -> country.
   - Aggregate at country.
 
 Outputs:
