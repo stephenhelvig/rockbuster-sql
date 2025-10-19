@@ -1,14 +1,31 @@
-/* Revenue by Film (Category & Rating included)
+/* Revenue by Film (Category & Rating included) — Active View (PostgreSQL)
 
-   Grain: one row per film–category.
-          Assumes one category per film; if a film has multiple categories it will appear multiple times,
-          and the film’s total revenue will repeat across those rows.
+Purpose:
+  Rank films by total revenue, including category and rating for context.
+  Uses an “active” population (only revenue-generating films).
 
-   Join path: payment -> rental -> inventory -> film -> film_category -> category
+Grain:
+  1 row per film–category.
+  Assumes one category per film; if not, a film will appear multiple times and its revenue will repeat.
 
-   Metric: SUM(p.amount) as revenue
+Strategy:
+  - Join spine: payment -> rental -> inventory -> film -> film_category -> category
+    (INNER JOINs restrict to films that generated revenue.)
+  - SUM(p.amount) aggregates revenue at the film level, then grouped with category & rating.
 
-   Note: If you later aggregate this output by category without deduping films, totals can be overstated.
+Outputs:
+  film_id,
+  title,
+  rating,
+  category,
+  revenue
+
+Guards:
+  - Optional validation query (commented below) checks the “one category per film” assumption:
+    films with 0 or >1 categories should return 0 rows if the assumption holds.
+
+Notes:
+  If there's ever more than one category added to a film and you later aggregate this output by category without deduping films, totals can be overstated.
 */
 
 -- ===== Guard (optional; uncomment to validate) =====
