@@ -31,26 +31,29 @@ Guards:
 */
 
 WITH totals AS (
-SELECT
-COUNT(r.rental_id) AS total_rentals,
-SUM(p.amount)      AS total_revenue
-FROM film f
-LEFT JOIN inventory i ON i.film_id = f.film_id
-LEFT JOIN rental   r  ON r.inventory_id = i.inventory_id
-LEFT JOIN payment  p  ON p.rental_id    = r.rental_id
+  SELECT
+    COUNT(r.rental_id) AS total_rentals,
+    SUM(p.amount)      AS total_revenue
+  FROM film f
+  LEFT JOIN inventory i ON i.film_id      = f.film_id
+  LEFT JOIN rental   r  ON r.inventory_id = i.inventory_id
+  LEFT JOIN payment  p  ON p.rental_id    = r.rental_id
 )
 SELECT
-f.rating                                         AS rating,
-COUNT(DISTINCT f.film_id)                        AS films_in_rating,
-COUNT(r.rental_id)                               AS rentals,
-COALESCE(SUM(p.amount), 0)                       AS revenue,
-(COUNT(r.rental_id) * 100.0) / NULLIF(t.total_rentals, 0) AS pct_of_total_rentals,
-(SUM(p.amount) * 100.0) / NULLIF(t.total_revenue, 0)      AS pct_of_total_revenue,
-(COALESCE(SUM(p.amount), 0.0) / NULLIF(COUNT(DISTINCT f.film_id), 0))  AS revenue_per_film
+  f.rating                                                AS rating,
+  COUNT(DISTINCT f.film_id)                               AS films_in_rating,
+  COUNT(r.rental_id)                                      AS rentals,
+  COALESCE(SUM(p.amount), 0)                              AS revenue,
+  COUNT(r.rental_id) * 100.0 / NULLIF(t.total_rentals, 0) AS pct_of_total_rentals,
+  SUM(p.amount)      * 100.0 / NULLIF(t.total_revenue, 0) AS pct_of_total_revenue,
+  COALESCE(SUM(p.amount), 0.0)
+    / NULLIF(COUNT(DISTINCT f.film_id), 0)                AS revenue_per_film
 FROM film f
 LEFT JOIN inventory i ON i.film_id      = f.film_id
 LEFT JOIN rental   r  ON r.inventory_id = i.inventory_id
 LEFT JOIN payment  p  ON p.rental_id    = r.rental_id
 CROSS JOIN totals t
-GROUP BY f.rating, t.total_rentals, t.total_revenue
-ORDER BY revenue DESC, f.rating;
+GROUP BY
+  f.rating, t.total_rentals, t.total_revenue
+ORDER BY
+  revenue DESC, f.rating;
