@@ -60,3 +60,14 @@ The project explores **catalog performance**, **customer segmentation**, and **g
 ---
 
 ## Next Steps
+1. Expand catalog breadth
+  - Add depth across all ratings and categories, not just top performers
+  - Emphasize variety to capture broad customer demand
+2. Prioritize content investment
+  - Secure additional rights in top-demand genres Sports, Sci-Fi, Animation, Drama)
+  - Maintain niche categories that can produce stand out performers Music, Documentary)
+3. Leverage global reach
+  - Streaming removes geographic barriers → scale acquisition across all high-population markets
+  - Ensure platform and marketing are accessible in major global regions Asia, Americas, Europe)
+4. Personalize retention efforts
+  - Use viewing history, recommendations, and tailored offers to keep customers engaged and maximize lifetime value
