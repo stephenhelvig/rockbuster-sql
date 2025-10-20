@@ -13,7 +13,7 @@ The project explores **catalog performance**, **customer segmentation**, and **g
 ## Repo Structure
 - `sql/` — productionized Postgres queries
 - `docs/` — presentation of analysis (Google sheets) & data dictionary PDFs
-- `data/` — csv exports
+- `data/` — Rockbuster Rental dataset and PostgreSQL csv exports
 
 ## Data & Assumptions
 - Dataset: **Rockbuster Rental** sample (PostgreSQL).
