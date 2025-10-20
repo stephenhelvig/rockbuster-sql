@@ -16,7 +16,7 @@ The project explores **catalog performance**, **customer segmentation**, and **g
 - `data/` — csv exports
 
 ## Data & Assumptions
-- Dataset: **DVD Rental** sample (PostgreSQL).
+- Dataset: **Rockbuster Rental** sample (PostgreSQL).
 - Each rental has a payment (in this project’s scope).
 - Some queries use **catalog view** (count all films/customers even if zero activity).
 - Others use **active view** (only revenue-generating rows).
