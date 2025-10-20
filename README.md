@@ -11,9 +11,9 @@ The project explores **catalog performance**, **customer segmentation**, and **g
 ---
 
 ## Repo Structure
-- `sql/` — productionized Postgres queries (single SELECT; guards commented if present)
-- `docs/` — case study notes & screenshots
-- `data/` — CSV exports (optional; kept with .gitkeep)
+- `sql/` — productionized Postgres queries
+- `docs/` — presentation of analysis (Google sheets) & data dictionary PDFs
+- `data/` — csv exports
 
 ## Data & Assumptions
 - Dataset: **DVD Rental** sample (PostgreSQL).
